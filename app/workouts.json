@@ -1,0 +1,488 @@
+[
+  {
+    "name": "Push-Up",
+    "region": "upper",
+    "type": "push",
+    "description": "Chest, shoulders, triceps bodyweight movement.",
+    "instructions": "High plank, lower chest to floor, push up, core tight.",
+    "muscle": "triceps, chest, shoulders",
+    "bodyPart": "arms, chest",
+    "tags": []
+  },
+  {
+    "name": "Diamond Push-Up",
+    "region": "upper",
+    "type": "push",
+    "description": "Push-up variation focused on triceps.",
+    "instructions": "Hands form diamond under chest, perform push-up.",
+    "muscle": "triceps",
+    "bodyPart": "arms",
+    "tags": []
+  },
+  {
+    "name": "Wide Push-Up",
+    "region": "upper",
+    "type": "push",
+    "description": "Targets outer chest fibers.",
+    "instructions": "Hands wider than shoulders, lower chest, push up.",
+    "muscle": "chest",
+    "bodyPart": "chest",
+    "tags": []
+  },
+  {
+    "name": "Incline Push-Up",
+    "region": "upper",
+    "type": "push",
+    "description": "Easier push-up for upper chest.",
+    "instructions": "Hands on elevated surface, perform push-up.",
+    "muscle": "upper chest",
+    "bodyPart": "chest",
+    "tags": []
+  },
+  {
+    "name": "Decline Push-Up",
+    "region": "upper",
+    "type": "push",
+    "description": "Focuses on upper chest and shoulders.",
+    "instructions": "Feet elevated, hands on floor, push-up.",
+    "muscle": "shoulders, upper chest",
+    "bodyPart": "shoulders, chest",
+    "tags": []
+  },
+  {
+    "name": "Pull-Up",
+    "region": "upper",
+    "type": "pull",
+    "description": "Back and biceps bodyweight pull.",
+    "instructions": "Hang, pull chin above bar, lower slowly.",
+    "muscle": "lats, biceps",
+    "bodyPart": "back, arms",
+    "tags": []
+  },
+  {
+    "name": "Chin-Up",
+    "region": "upper",
+    "type": "pull",
+    "description": "Pull-up variation with underhand grip.",
+    "instructions": "Hang palms facing you, pull up, lower slowly.",
+    "muscle": "biceps, lats",
+    "bodyPart": "arms, back",
+    "tags": []
+  },
+  {
+    "name": "Inverted Row",
+    "region": "upper",
+    "type": "pull",
+    "description": "Bodyweight row targeting mid-back.",
+    "instructions": "Body under bar, pull chest to bar, lower.",
+    "muscle": "mid-back, biceps",
+    "bodyPart": "back, arms",
+    "tags": []
+  },
+  {
+    "name": "Dumbbell Bench Press",
+    "region": "upper",
+    "type": "push",
+    "description": "Chest press with dumbbells.",
+    "instructions": "Press dumbbells from chest up, lower slowly.",
+    "muscle": "chest, triceps",
+    "bodyPart": "chest, arms",
+    "tags": []
+  },
+  {
+    "name": "Barbell Bench Press",
+    "region": "upper",
+    "type": "push",
+    "description": "Heavy chest compound lift.",
+    "instructions": "Lower bar to chest, press up, control descent.",
+    "muscle": "chest, triceps",
+    "bodyPart": "chest, arms",
+    "tags": []
+  },
+  {
+    "name": "Bent-Over Row",
+    "region": "upper",
+    "type": "pull",
+    "description": "Back-body compound row.",
+    "instructions": "Hinge hips, row bar to waist, lower slowly.",
+    "muscle": "lats, rhomboids, biceps",
+    "bodyPart": "back, arms",
+    "tags": []
+  },
+  {
+    "name": "Seated Cable Row",
+    "region": "upper",
+    "type": "pull",
+    "description": "Back row on cable machine.",
+    "instructions": "Pull handle to torso, squeeze shoulder blades.",
+    "muscle": "mid-back, biceps",
+    "bodyPart": "back, arms",
+    "tags": []
+  },
+  {
+    "name": "Overhead Press",
+    "region": "upper",
+    "type": "push",
+    "description": "Shoulder and triceps press overhead.",
+    "instructions": "Press weight overhead, lower under control.",
+    "muscle": "deltoids, triceps",
+    "bodyPart": "shoulders, arms",
+    "tags": []
+  },
+  {
+    "name": "Lateral Raise",
+    "region": "upper",
+    "type": "push",
+    "description": "Isolation for side delts.",
+    "instructions": "Raise weights laterally to shoulder height.",
+    "muscle": "deltoids",
+    "bodyPart": "shoulders",
+    "tags": []
+  },
+  {
+    "name": "Front Raise",
+    "region": "upper",
+    "type": "push",
+    "description": "Front deltoid isolation.",
+    "instructions": "Raise weights in front to eye level.",
+    "muscle": "anterior deltoid",
+    "bodyPart": "shoulders",
+    "tags": []
+  },
+  {
+    "name": "Bicep Curl",
+    "region": "upper",
+    "type": "pull",
+    "description": "Isolation for bicep muscles.",
+    "instructions": "Curl weight to shoulder, lower slowly.",
+    "muscle": "biceps",
+    "bodyPart": "arms",
+    "tags": []
+  },
+  {
+    "name": "Hammer Curl",
+    "region": "upper",
+    "type": "pull",
+    "description": "Bicep and forearm variation.",
+    "instructions": "Curl with neutral grip, lower controlled.",
+    "muscle": "biceps, brachialis",
+    "bodyPart": "arms",
+    "tags": []
+  },
+  {
+    "name": "Tricep Dip",
+    "region": "upper",
+    "type": "push",
+    "description": "Bodyweight triceps-focused dip.",
+    "instructions": "Lower body with elbows back, press up.",
+    "muscle": "triceps",
+    "bodyPart": "arms",
+    "tags": []
+  },
+  {
+    "name": "Skull Crusher",
+    "region": "upper",
+    "type": "push",
+    "description": "Overhead triceps isolation with barbell/dumbbell.",
+    "instructions": "Lower weight to forehead, extend arms back.",
+    "muscle": "triceps",
+    "bodyPart": "arms",
+    "tags": []
+  },
+  {
+    "name": "Squat",
+    "region": "lower",
+    "type": "push",
+    "description": "Posterior chain and quad staple compound.",
+    "instructions": "Hips back, chest up, push through heels.",
+    "muscle": "glutes, quads, hamstrings",
+    "bodyPart": "legs",
+    "tags": []
+  },
+  {
+    "name": "Front Squat",
+    "region": "lower",
+    "type": "push",
+    "description": "Quad-heavy squat variation.",
+    "instructions": "Barbell front rack, squat with upright torso.",
+    "muscle": "quads",
+    "bodyPart": "legs",
+    "tags": []
+  },
+  {
+    "name": "Sumo Squat",
+    "region": "lower",
+    "type": "push",
+    "description": "Targets inner thighs and glutes.",
+    "instructions": "Wide stance, toes out, squat down.",
+    "muscle": "inner thighs, glutes",
+    "bodyPart": "legs",
+    "tags": []
+  },
+  {
+    "name": "Deadlift",
+    "region": "lower",
+    "type": "pull",
+    "description": "Overall posterior chain heavy lift.",
+    "instructions": "Hinge, lift bar to hips, back straight.",
+    "muscle": "hamstrings, glutes, back",
+    "bodyPart": "legs, back",
+    "tags": []
+  },
+  {
+    "name": "Romanian Deadlift",
+    "region": "lower",
+    "type": "pull",
+    "description": "Hamstring-dominant hinge movement.",
+    "instructions": "Slight knee bend, hinge hips, lower/raise bar.",
+    "muscle": "hamstrings, glutes",
+    "bodyPart": "legs",
+    "tags": []
+  },
+  {
+    "name": "Lunge",
+    "region": "lower",
+    "type": "push",
+    "description": "Unilateral quad/glute focus.",
+    "instructions": "Step forward, lower to 90\u00b0, press back.",
+    "muscle": "quads, glutes",
+    "bodyPart": "legs",
+    "tags": [
+      "warmup"
+    ]
+  },
+  {
+    "name": "Reverse Lunge",
+    "region": "lower",
+    "type": "push",
+    "description": "Push step backward, knee close to floor.",
+    "instructions": "Step back, lower, push forward to start.",
+    "muscle": "glutes, quads",
+    "bodyPart": "legs",
+    "tags": [
+      "warmup"
+    ]
+  },
+  {
+    "name": "Bulgarian Split Squat",
+    "region": "lower",
+    "type": "push",
+    "description": "Single-leg squat targeting quads/glutes.",
+    "instructions": "Rear foot elevated, squat low on front leg.",
+    "muscle": "quads, glutes",
+    "bodyPart": "legs",
+    "tags": []
+  },
+  {
+    "name": "Calf Raise",
+    "region": "lower",
+    "type": "push",
+    "description": "Standing calf isolation.",
+    "instructions": "Lift heels, squeeze calves, lower slowly.",
+    "muscle": "calves",
+    "bodyPart": "legs",
+    "tags": [
+      "warmup"
+    ]
+  },
+  {
+    "name": "Glute Bridge",
+    "region": "lower",
+    "type": "push",
+    "description": "Glute activation from ground.",
+    "instructions": "Feet planted, lift hips, squeeze glutes.",
+    "muscle": "glutes, hamstrings",
+    "bodyPart": "core, legs",
+    "tags": [
+      "activation",
+      "warmup"
+    ]
+  },
+  {
+    "name": "Hip Thrust",
+    "region": "lower",
+    "type": "push",
+    "description": "Barbell glute-builder.",
+    "instructions": "Upper back on bench, drive hips up with barbell.",
+    "muscle": "glutes",
+    "bodyPart": "core, legs",
+    "tags": [
+      "activation"
+    ]
+  },
+  {
+    "name": "Plank",
+    "region": "mid",
+    "type": "combo",
+    "description": "Core stabilization hold.",
+    "instructions": "Forearms ground, body straight, hold.",
+    "muscle": "abs, obliques",
+    "bodyPart": "core",
+    "tags": [
+      "core"
+    ]
+  },
+  {
+    "name": "Side Plank",
+    "region": "mid",
+    "type": "combo",
+    "description": "Oblique/core stability hold.",
+    "instructions": "On one forearm/side foot, lift hips, hold.",
+    "muscle": "obliques",
+    "bodyPart": "core",
+    "tags": [
+      "core"
+    ]
+  },
+  {
+    "name": "Russian Twist",
+    "region": "mid",
+    "type": "pull",
+    "description": "Rotational core move for obliques.",
+    "instructions": "Twist torso side-to-side holding weight.",
+    "muscle": "obliques",
+    "bodyPart": "core",
+    "tags": [
+      "core"
+    ]
+  },
+  {
+    "name": "Bicycle Crunch",
+    "region": "mid",
+    "type": "combo",
+    "description": "Dynamic abs/oblique exercise.",
+    "instructions": "Alternate elbow to opposite knee cycling.",
+    "muscle": "abs, obliques",
+    "bodyPart": "core",
+    "tags": [
+      "core"
+    ]
+  },
+  {
+    "name": "Hanging Leg Raise",
+    "region": "mid",
+    "type": "pull",
+    "description": "Lower abs bar-hang movement.",
+    "instructions": "Hang, raise legs up, lower with control.",
+    "muscle": "lower abs",
+    "bodyPart": "core",
+    "tags": []
+  },
+  {
+    "name": "Mountain Climber",
+    "region": "combo",
+    "type": "combo",
+    "description": "Core and cardio in plank position.",
+    "instructions": "Alternate knees to chest quickly.",
+    "muscle": "abs, shoulders",
+    "bodyPart": "core, shoulders",
+    "tags": [
+      "aerobic",
+      "core"
+    ]
+  },
+  {
+    "name": "Burpee",
+    "region": "combo",
+    "type": "combo",
+    "description": "Full-body power move with jump.",
+    "instructions": "Squat, plank, push-up, jump.",
+    "muscle": "full body",
+    "bodyPart": "full body",
+    "tags": [
+      "aerobic",
+      "full-body"
+    ]
+  },
+  {
+    "name": "Kettlebell Swing",
+    "region": "combo",
+    "type": "pull",
+    "description": "Hip-hinge cardio/strength combo.",
+    "instructions": "Swing bell from between legs to chest.",
+    "muscle": "glutes, hamstrings",
+    "bodyPart": "legs",
+    "tags": [
+      "aerobic",
+      "legs"
+    ]
+  },
+  {
+    "name": "Jumping Jack",
+    "region": "combo",
+    "type": "combo",
+    "description": "Simple cardio full-body move.",
+    "instructions": "Jump legs apart, arms overhead, return.",
+    "muscle": "full body",
+    "bodyPart": "full body",
+    "tags": [
+      "aerobic",
+      "warmup"
+    ]
+  },
+  {
+    "name": "High Knees",
+    "region": "combo",
+    "type": "combo",
+    "description": "Cardio drill lifting knees high.",
+    "instructions": "Run in place lifting knees to hips fast.",
+    "muscle": "hip flexors, calves",
+    "bodyPart": "legs",
+    "tags": [
+      "aerobic",
+      "warmup"
+    ]
+  },
+  {
+    "name": "Box Jump",
+    "region": "lower",
+    "type": "combo",
+    "description": "Explosive plyometric lower body.",
+    "instructions": "Jump onto box, land softly, step down.",
+    "muscle": "glutes, quads",
+    "bodyPart": "legs",
+    "tags": [
+      "plyometric",
+      "legs"
+    ]
+  },
+  {
+    "name": "Farmer\u2019s Walk",
+    "region": "combo",
+    "type": "pull",
+    "description": "Grip, core, and full-body stability.",
+    "instructions": "Walk holding weights at sides with neutral spine.",
+    "muscle": "forearms, traps, core",
+    "bodyPart": "arms, core",
+    "tags": [
+      "core",
+      "grip"
+    ]
+  },
+  {
+    "name": "Medicine Ball Slam",
+    "region": "combo",
+    "type": "combo",
+    "description": "Core explosive power move.",
+    "instructions": "Lift ball overhead, slam to ground, pick up.",
+    "muscle": "core, shoulders",
+    "bodyPart": "core, shoulders",
+    "tags": [
+      "aerobic",
+      "core"
+    ]
+  },
+  {
+    "name": "Battle Rope",
+    "region": "combo",
+    "type": "combo",
+    "description": "Full-body high-intensity rhythm wave drills.",
+    "instructions": "Alternate or double wave rope slams aggressively.",
+    "muscle": "shoulders, arms, core",
+    "bodyPart": "shoulders, arms, core",
+    "tags": [
+      "aerobic",
+      "arms"
+    ]
+  }
+]

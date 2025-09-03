@@ -1,0 +1,6 @@
+need sqlite
+
+need to make a user
+
+favourites 
+
