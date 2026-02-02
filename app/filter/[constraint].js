@@ -1,62 +1,263 @@
-import React, { useState, useCallback } from 'react';
-import { Text, View,ScrollView } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { useFocusEffect } from '@react-navigation/native';
-import allWorkouts from '../workouts.json';
+import React, { useState, useCallback } from "react";
+import {
+  Text,
+  View,
+  ScrollView,
+  Alert,
+  Pressable,
+  TouchableOpacity,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+} from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
+import * as SQLite from "expo-sqlite";
+import { getUserName } from "../../lib/session";
+import allWorkouts from "../workouts.json";
 
-export default function SeeWorkouts() {
+
+export default function ShowWorkouts() {
   const { constraint } = useLocalSearchParams();
   const [filteredWorkouts, setFilteredWorkouts] = useState([]);
-  const heading = constraint.toUpperCase() || 'No Constraint';
+  const [userName, setUserName] = useState("");
 
-//   console.log('Constraint:', constraint);
-//   console.log('Workout data sample:', allWorkouts[0]);
+  const heading =
+    typeof constraint === "string" ? constraint : "WORKOUTS";
 
   useFocusEffect(
     useCallback(() => {
-      if (!constraint) return;
-
-      const lowerConstraint = constraint.toLowerCase();
-
-      const filtered = allWorkouts.filter((workout) =>
-
-        //Here .some checks if any tag satisfy the condition,
-        //  wwe are using this because tags is an array
-        workout.tags.some(tag =>
-          tag.toLowerCase().includes(lowerConstraint)
-        )
-      );
-
+      const filtered = allWorkouts.filter((workout) => workout.tags[0] === constraint);
       setFilteredWorkouts(filtered);
+
+      const name = getUserName();
+      setUserName(name || "");
     }, [constraint])
   );
 
+  const addToFavourites = async (workoutName) => {
+    try {
+      if (!userName) {
+        Alert.alert("Error", "No user logged in.");
+        return;
+      }
+
+      const database = await SQLite.openDatabaseAsync("Fitness.db");
+
+      await database.execAsync(`
+        CREATE TABLE IF NOT EXISTS favourites(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          userName TEXT NOT NULL
+        );
+      `);
+
+      await database.runAsync(
+        "INSERT INTO favourites(name, userName) VALUES(?, ?)",
+        [workoutName, userName]
+      );
+
+      Alert.alert("Success", "Workout added to favourites successfully");
+    } catch (e) {
+      console.error(e);
+      Alert.alert("Error", "Failed to add to favourites.");
+    }
+  };
+
   return (
-    <ScrollView>
-    <View style={{ padding: 16, backgroundColor: '#fff', flex: 1 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 16 }}>
-        {heading}
-      </Text>
+    <ImageBackground
+      source={require("../../assets/images/Background.png")}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <SafeAreaView style={styles.overlay}>
+        {/* FIXED HEADER (stays on top while scrolling) */}
+        <View style={styles.fixedHeader}>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => router.replace("/type")}
+          >
+            <Text style={styles.headerButtonText}>← Back</Text>
+          </TouchableOpacity>
 
-      {filteredWorkouts.length === 0 && (
-        <Text style={{ color: 'gray', fontSize: 16 }}>
-          No workouts found for "{heading}"
-        </Text>
-      )}
-
-      {filteredWorkouts.map((item, index) => (
-        <View key={index} style={{ marginVertical: 12 }}>
-          <Text style={{ fontWeight: 'bold' }}>Name: {item.name}</Text>
-          <Text>Region: {item.region}</Text>
-          <Text>Type: {item.type}</Text>
-          <Text>Description: {item.description}</Text>
-          <Text>Instructions: {item.instructions}</Text>
-          <Text>Muscle: {item.muscle}</Text>
-          <Text>Body Part: {item.bodyPart}</Text>
-          <Text>Tags: {item.tags?.join(', ') || 'None'}</Text>
+          <TouchableOpacity
+            style={styles.headerButton}
+            onPress={() => router.replace("/type")}
+          >
+            <Text style={styles.headerButtonText}>Home</Text>
+          </TouchableOpacity>
         </View>
-      ))}
-    </View>
-    </ScrollView>
+
+        {/* SCROLLABLE CONTENT */}
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={styles.title}>{heading}</Text>
+
+          {filteredWorkouts.length === 0 && (
+            <Text style={styles.emptyText}>No workouts found for "{heading}"</Text>
+          )}
+
+          {filteredWorkouts.map((item, index) => (
+            <Pressable
+              key={`${item.name}-${index}`}
+              style={styles.card}
+              onPress={() =>
+                Alert.alert("Select", "Add to favourites?", [
+                  { text: "Cancel", style: "cancel" },
+                  { text: "Add", onPress: () => addToFavourites(item.name) },
+                ])
+              }
+            >
+              <Text style={styles.cardTitle}>{item.name}</Text>
+
+              <Text style={styles.rowText}>
+                <Text style={styles.label}>Region:</Text> {item.region}
+              </Text>
+
+              <Text style={styles.rowText}>
+                <Text style={styles.label}>Type:</Text> {item.type}
+              </Text>
+
+              <Text style={styles.rowText}>
+                <Text style={styles.label}>Muscle:</Text> {item.muscle}
+              </Text>
+
+              <Text style={styles.rowText}>
+                <Text style={styles.label}>Body Part:</Text> {item.bodyPart}
+              </Text>
+
+              <Text style={styles.rowText}>
+                <Text style={styles.label}>Tags:</Text>{" "}
+                {item.tags?.join(", ") || "None"}
+              </Text>
+
+              <View style={styles.divider} />
+
+              <Text style={styles.sectionTitle}>Description</Text>
+              <Text style={styles.paragraph}>{item.description}</Text>
+
+              <Text style={[styles.sectionTitle, { marginTop: 8 }]}>
+                Instructions
+              </Text>
+              <Text style={styles.paragraph}>{item.instructions}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
+
+const ORANGE = "rgba(255, 140, 0, 0.92)";
+const GLOW_BORDER = "rgba(255,255,255,0.28)";
+
+const styles = StyleSheet.create({
+  background: { flex: 1 },
+
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.6)",
+  },
+
+  // Fixed header above the scroll view
+  fixedHeader: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 50,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+
+  headerButton: {
+    backgroundColor: ORANGE,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+  },
+
+  headerButtonText: {
+    color: "#fff",
+    fontWeight: "900",
+    fontSize: 14,
+  },
+
+  // Padding top so content doesn't hide behind fixed header
+  scrollContent: {
+    paddingTop: 80,
+    paddingHorizontal: 16,
+    paddingBottom: 24,
+  },
+
+  title: {
+    color: "#fff",
+    fontSize: 26,
+    fontWeight: "900",
+    marginBottom: 14,
+    textAlign: "center",
+  },
+
+  emptyText: {
+    color: "rgba(255,255,255,0.8)",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 20,
+  },
+
+  // Workout cards with a subtle glowing outline
+  card: {
+    borderRadius: 16,
+    padding: 14,
+    marginBottom: 14,
+    backgroundColor: "rgba(0,0,0,0.45)",
+    borderWidth: 1,
+    borderColor: GLOW_BORDER,
+
+    shadowColor: "#ffffff",
+    shadowOpacity: 0.18,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: 2,
+  },
+
+  cardTitle: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "900",
+    marginBottom: 10,
+  },
+
+  rowText: {
+    color: "rgba(255,255,255,0.88)",
+    marginBottom: 4,
+    lineHeight: 20,
+  },
+
+  label: {
+    fontWeight: "800",
+    color: "rgba(255,255,255,0.75)",
+  },
+
+  divider: {
+    height: 1,
+    backgroundColor: "rgba(255,255,255,0.12)",
+    marginVertical: 10,
+  },
+
+  sectionTitle: {
+    color: "rgba(255,255,255,0.92)",
+    fontWeight: "900",
+    marginBottom: 4,
+  },
+
+  paragraph: {
+    color: "rgba(255,255,255,0.85)",
+    lineHeight: 20,
+  },
+});

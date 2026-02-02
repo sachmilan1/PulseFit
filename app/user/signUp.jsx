@@ -12,9 +12,9 @@ import {
   Platform,
   ScrollView,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 import * as SQLite from 'expo-sqlite';
-import { Picker } from '@react-native-picker/picker';
 import { useFocusEffect, router } from 'expo-router';
 
 export default function SignUp() {
@@ -26,6 +26,8 @@ export default function SignUp() {
     sex: '',
     userName: '',
   });
+  const [showPicker, setShowPicker] = useState(false);
+  const [tempSex, setTempSex] = useState(form.sex);
 
   const setDatabase = async () => {
     const database = await SQLite.openDatabaseAsync('Fitness.db');
@@ -48,6 +50,10 @@ export default function SignUp() {
   );
 
   const handleSave = async () => {
+    if (!db) {
+      Alert.alert('Please wait', 'Database is initializing. Try again in a moment.');
+      return;
+    }
 
     if (
       !form.Name.trim() ||
@@ -86,6 +92,7 @@ export default function SignUp() {
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior={Platform.select({ ios: 'padding', android: undefined })}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 130 : 0}
         >
           <ScrollView contentContainerStyle={styles.scroll}>
             <View style={styles.card}>
@@ -116,21 +123,85 @@ export default function SignUp() {
                 />
               </View>
 
+              {/* --- Sex field with Modal and three buttons --- */}
               <View style={styles.field}>
                 <Text style={styles.label}>Sex</Text>
-                <View style={styles.pickerWrap}>
-                  <Picker
-                    selectedValue={form.sex}
-                    onValueChange={(v) => setForm({ ...form, sex: v })}
-                    style={styles.picker}
-                    dropdownIconColor="#e5e7eb"
-                  >
-                    <Picker.Item label="Select…" value="" />
-                    <Picker.Item label="Male" value="Male" />
-                    <Picker.Item label="Female" value="Female" />
-                    <Picker.Item label="Other / Prefer not to say" value="Other" />
-                  </Picker>
-                </View>
+
+                {/* Faux input that opens the modal */}
+                <TouchableOpacity
+                  style={styles.input}
+                  onPress={() => {
+                    setTempSex(form.sex || '');
+                    setShowPicker(true);
+                  }}
+                  activeOpacity={0.85}
+                >
+                  <Text style={{ color: form.sex ? '#e5e7eb' : '#9aa0a6', fontSize: 16 }}>
+                    {form.sex || 'Select…'}
+                  </Text>
+                </TouchableOpacity>
+
+                {/* Modal */}
+                <Modal
+                  visible={showPicker}
+                  transparent
+                  animationType="slide"
+                  onRequestClose={() => setShowPicker(false)}
+                >
+                  <View style={styles.modalBackdrop}>
+                    <View style={styles.modalCard}>
+                      <Text style={styles.modalTitle}>Select sex</Text>
+
+                      <View style={styles.optionGroup}>
+                        {[
+                          { label: 'Male', value: 'Male' },
+                          { label: 'Female', value: 'Female' },
+                          { label: 'Other', value: 'Other' }, // or use 'Other'
+                        ].map((opt) => (
+                          <TouchableOpacity
+                            key={opt.value}
+                            onPress={() => setTempSex(opt.value)}
+
+                            style={[
+                              styles.option,
+                              tempSex === opt.value && styles.optionSelected,
+                            ]}
+                            activeOpacity={0.85}
+                          >
+                            <Text
+                              style={[
+                                styles.optionText,
+                                tempSex === opt.value && styles.optionTextSelected,
+                              ]}
+                            >
+                              {opt.label}
+                            </Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+
+                      <View style={styles.modalActions}>
+                        <TouchableOpacity
+                          style={[styles.btn, styles.btnSecondary]}
+                          onPress={() => setShowPicker(false)}
+                        >
+                          <Text style={styles.btnSecondaryText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.btn, !tempSex && styles.btnDisabled]}
+                          onPress={() => {
+                            if (!tempSex) return;
+                            setForm({ ...form, sex: tempSex });
+                            setShowPicker(false);
+                          }}
+                          disabled={!tempSex}
+                        >
+                          <Text style={styles.btnText}>Done</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </Modal>
               </View>
 
               <View style={styles.field}>
@@ -141,7 +212,6 @@ export default function SignUp() {
                   placeholder="e.g., alex_j"
                   placeholderTextColor="#9aa0a6"
                   style={styles.input}
-                  autoCapitalize="none"
                 />
               </View>
 
@@ -151,11 +221,7 @@ export default function SignUp() {
                 activeOpacity={0.85}
                 disabled={!db || saving}
               >
-                {saving ? (
-                  <ActivityIndicator size="small" />
-                ) : (
-                  <Text style={styles.btnText}>Sign Up</Text>
-                )}
+                {saving ? <ActivityIndicator size="small" /> : <Text style={styles.btnText}>Sign Up</Text>}
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -206,14 +272,6 @@ const styles = StyleSheet.create({
     color: '#e5e7eb',
     fontSize: 16,
   },
-  pickerWrap: {
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  picker: { color: '#e5e7eb', height: 48 },
   btn: {
     marginTop: 12,
     backgroundColor: '#22c55e',
@@ -226,4 +284,57 @@ const styles = StyleSheet.create({
   linkBtn: { paddingVertical: 10, alignItems: 'center' },
   linkText: { color: '#93c5fd', fontSize: 14 },
   footer: { textAlign: 'center', color: '#cbd5e1', fontSize: 12, marginTop: 12 },
+
+  // Modal styles
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalCard: {
+    backgroundColor: 'rgba(17, 24, 39, 0.98)',
+    padding: 16,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    gap: 12,
+  },
+  modalTitle: { color: '#e5e7eb', fontWeight: '700', fontSize: 16 },
+  modalActions: {
+    justifyContent: 'center',
+    gap: 10,
+    marginTop: 8,
+  },
+  // Option buttons
+  optionGroup: {
+    gap: 10,
+    marginTop: 4,
+  },
+  option: {
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
+    backgroundColor: 'rgba(255,255,255,0.06)',
+  },
+  optionSelected: {
+    backgroundColor: 'rgba(34,197,94,0.18)',
+    borderColor: '#22c55e',
+  },
+  optionText: {
+    color: '#e5e7eb',
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  optionTextSelected: {
+    color: '#e5e7eb',
+    fontWeight: '700',
+  },
+  // Secondary (outlined) button
+  btnSecondary: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.25)',
+  },
+  btnSecondaryText: { color: 'red', fontWeight: '700', fontSize: 16 },
 });

@@ -1,30 +1,82 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 import { router } from 'expo-router';
-import AppStyles from './AppStyles';
 
-const App = () => {
+export default function Index() {
   return (
-    <View style={AppStyles.container}>
-      <Text style={AppStyles.title}>Are you ready to get fit!!!</Text>
+    <ImageBackground
+      source={require('../assets/images/Background.png')}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <SafeAreaView style={styles.overlay}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Are you ready to get fit!!!</Text>
 
-      <TouchableOpacity style={AppStyles.button}>
-        <Text style={AppStyles.buttonText}>Login</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.replace('/user/signIn')}
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity style={AppStyles.button}
-      onPress={()=>{
-        router.replace('/user/signUp')
-      }}>
-        <Text style={AppStyles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.replace('/user/signUp')}
+          >
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity style={AppStyles.button}
-      onPress={async()=>{router.push({pathname:'../type'})}}>
-        <Text style={AppStyles.buttonText}>Guest</Text>
-      </TouchableOpacity>
-    </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push('/type')}
+          >
+            <Text style={styles.buttonText}>Guest</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
-};
+}
 
-export default App;
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)', // dark overlay
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 24,
+  },
+  title: {
+    color: '#fff',
+    fontSize: 28,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  button: {
+    backgroundColor: '#E53935', // RED buttons
+    height: 52,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 14,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+});

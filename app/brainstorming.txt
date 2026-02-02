@@ -1,0 +1,9 @@
+sign up- check if the user is present -------done
+
+export the user name to the rest of the app -------done
+
+favourites ------done
+
+taking a picture -------working
+
+checking calories -------working
